@@ -1,6 +1,10 @@
 package medication
 
-func createMedication(c echo.Context) error {
+import (
+	"github.com/gin-gonic/gin"
+)
+
+func createMedication(c *gin.Context) error {
 	u := &medication{
 		ID: seq,
 	}
@@ -12,17 +16,17 @@ func createMedication(c echo.Context) error {
 	return c.JSON(http.StatusCreated, u)
 }
 
-func getMedication(c echo.Context) error {
+func getMedication(c *gin.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	return c.JSON(http.StatusOK, medications[id])
 }
 
-func getMedications(c echo.Context) error {
+func getMedications(c *gin.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	return c.JSON(http.StatusOK, medications[id])
 }
 
-func updateMedication(c echo.Context) error {
+func updateMedication(c *gin.Context) error {
 	u := new(drone)
 	if err := c.Bind(u); err != nil {
 		return err
@@ -32,7 +36,7 @@ func updateMedication(c echo.Context) error {
 	return c.JSON(http.StatusOK, medications[id])
 }
 
-func deleteMedication(c echo.Context) error {
+func deleteMedication(c *gin.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	delete(medications, id)
 	return c.NoContent(http.StatusNoContent)

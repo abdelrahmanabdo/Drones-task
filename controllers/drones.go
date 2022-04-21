@@ -1,7 +1,10 @@
-
 package drone
 
-func createDrone(c echo.Context) error {
+import (
+	"github.com/gin-gonic/gin"
+)
+
+func createDrone(c *gin.Context) error {
 	u := &drone{
 		ID: seq,
 	}
@@ -13,17 +16,17 @@ func createDrone(c echo.Context) error {
 	return c.JSON(http.StatusCreated, u)
 }
 
-func getDrone(c echo.Context) error {
+func getDrone(c *gin.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	return c.JSON(http.StatusOK, drones[id])
 }
 
-func getDrones(c echo.Context) error {
+func getDrones(c *gin.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	return c.JSON(http.StatusOK, drones[id])
 }
 
-func updateDrone(c echo.Context) error {
+func updateDrone(c *gin.Context) error {
 	u := new(drone)
 	if err := c.Bind(u); err != nil {
 		return err
@@ -33,7 +36,7 @@ func updateDrone(c echo.Context) error {
 	return c.JSON(http.StatusOK, drones[id])
 }
 
-func deleteDrone(c echo.Context) error {
+func deleteDrone(c *gin.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	delete(drones, id)
 	return c.NoContent(http.StatusNoContent)
